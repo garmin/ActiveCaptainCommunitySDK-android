@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/Catch2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/SQLiteCpp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/SQLiteCpp/googletest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/mustache" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/rapidjson" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/activecaptaincommunitysdk/src/main/cpp/acdb/submodules/rapidjson/thirdparty/gtest" vcs="Git" />
+  </component>
+</project>

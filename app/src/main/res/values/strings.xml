@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ActiveCaptain Sample</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Enter Marker Name</string>
+    <string name="file_browser">File Browser</string>
+    <string name="permissions_external">Allow app to access external storage?</string>
+</resources>

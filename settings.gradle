@@ -1,0 +1,3 @@
+include ':activecaptaincommunitysdk'
+include ':app'
+rootProject.name = "ActiveCaptain Sample"

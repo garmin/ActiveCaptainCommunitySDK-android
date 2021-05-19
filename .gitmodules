@@ -1,0 +1,4 @@
+[submodule "activecaptaincommunitysdk/src/main/cpp/acdb"]
+	path = activecaptaincommunitysdk/src/main/cpp/acdb
+	url = https://github.com/garmin/ActiveCaptainCommunitySDK-common.git
+	branch = main
