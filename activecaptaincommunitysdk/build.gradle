@@ -1,4 +1,7 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
 
 android {
     compileSdkVersion 30
@@ -8,9 +11,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "2.0.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "2.0.1"
     }
 
     buildTypes {
@@ -40,10 +41,36 @@ android {
 }
 
 dependencies {
+}
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/garmin/ActiveCaptainCommunitySDK-android")
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                    password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.garmin.marine.activecaptaincommunitysdk'
+                artifactId = 'activecaptaincommunitysdk-release'
+                version = android.defaultConfig.versionName
+            }
+
+            debug(MavenPublication) {
+                from components.debug
+
+                groupId = 'com.garmin.marine.activecaptaincommunitysdk'
+                artifactId = 'activecaptaincommunitysdk-debug'
+                version = android.defaultConfig.versionName
+            }
+        }
+    }
 }
