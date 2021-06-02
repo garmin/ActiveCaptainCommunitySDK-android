@@ -37,6 +37,12 @@ android {
                 outputFileName = "activecaptaincommunitysdk-${variant.name}-${defaultConfig.versionName}.aar"
             }
         }
+
+        task("generate${variant.name}Javadoc", type: Javadoc) {
+            source = android.sourceSets.main.java.srcDirs
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+            destinationDir = file("../doc/${variant.name}")
+        }
     }
 }
 
