@@ -17,8 +17,6 @@ limitations under the License.
 package com.garmin.marine.activecaptainsample;
 
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
@@ -28,6 +26,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -35,7 +34,6 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.webkit.WebViewAssetLoader;
 import androidx.webkit.WebViewAssetLoader.AssetsPathHandler;
 
@@ -54,7 +52,8 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private enum LaunchActivity {
-        WEBVIEW_ACTIVITY(1);
+        WEBVIEW_ACTIVITY(1),
+        SEARCH_ACTIVITY(2);
 
         LaunchActivity(int value) {
             this.value = value;
@@ -176,31 +175,26 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra(SearchResultsActivity.MARKER_ID)) {
-            markerId = intent.getLongExtra(SearchResultsActivity.MARKER_ID, markerId);
-            reloadContent();
-        } else {
-            List<BoundingBox> boundingBoxes = new ArrayList<>();
-            boundingBoxes.add(new BoundingBox(17.0, -171.0, 72.0, -64.0));
-            ActiveCaptainManager.getInstance().setBoundingBoxes(boundingBoxes);
+        List<BoundingBox> boundingBoxes = new ArrayList<>();
+        boundingBoxes.add(new BoundingBox(17.0, -171.0, 72.0, -64.0));
+        ActiveCaptainManager.getInstance().setBoundingBoxes(boundingBoxes);
 
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            Handler handler = new Handler(Looper.getMainLooper());
-            executor.execute(() -> {
-                if (intent.hasExtra(LoginActivity.SERVICE_URL) && intent.hasExtra(LoginActivity.SERVICE_TICKET)) {
-                    String serviceUrl = intent.getStringExtra(LoginActivity.SERVICE_URL);
-                    String serviceTicket = intent.getStringExtra(LoginActivity.SERVICE_TICKET);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            if (intent.hasExtra(LoginActivity.SERVICE_URL) && intent.hasExtra(LoginActivity.SERVICE_TICKET)) {
+                String serviceUrl = intent.getStringExtra(LoginActivity.SERVICE_URL);
+                String serviceTicket = intent.getStringExtra(LoginActivity.SERVICE_TICKET);
 
-                    if (serviceUrl != null && !serviceUrl.isEmpty() && serviceTicket != null && !serviceTicket.isEmpty()) {
-                        ActiveCaptainManager.getInstance().getAccessToken(serviceUrl, serviceTicket);
-                    }
+                if (serviceUrl != null && !serviceUrl.isEmpty() && serviceTicket != null && !serviceTicket.isEmpty()) {
+                    ActiveCaptainManager.getInstance().getAccessToken(serviceUrl, serviceTicket);
                 }
+            }
 
-                ActiveCaptainManager.getInstance().setAutoUpdate(true);
+            ActiveCaptainManager.getInstance().setAutoUpdate(true);
 
-                handler.post(this::reloadContent);
-            });
-        }
+            handler.post(this::reloadContent);
+        });
     }
 
     @Override
@@ -208,12 +202,19 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivityForResult(intent, LaunchActivity.SEARCH_ACTIVITY.getValue());
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void setHtml(String html) {
@@ -243,6 +244,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LaunchActivity.SEARCH_ACTIVITY.getValue() && resultCode == RESULT_OK && data != null && data.hasExtra(SearchActivity.MARKER_ID)) {
+            markerId = data.getLongExtra(SearchActivity.MARKER_ID, markerId);
+        }
 
         reloadContent();
     }

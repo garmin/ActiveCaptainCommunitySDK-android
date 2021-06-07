@@ -20,6 +20,7 @@ public class ActiveCaptainConfiguration {
     static final String API_BASE_URL = "https://activecaptain-stage.garmin.com/community/thirdparty/";
     static final String API_KEY = "STAGE_API_KEY_HERE";
     static final String SSO_URL = "https://ssotest.garmin.com/sso/embed?clientId=ACTIVE_CAPTAIN_WEB&locale=en_US";
+    static final int MARKER_MIN_SEARCH_LENGTH = 3;
     static final int MARKER_MAX_SEARCH_RESULTS = 100;
     static final int REVIEW_LIST_PAGE_SIZE = 10;
     static final int UPDATE_INTERVAL_MINS = 15;  // in minutes, must be >= 15
