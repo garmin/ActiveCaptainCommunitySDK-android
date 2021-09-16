@@ -43,20 +43,20 @@ public class MarkerRecyclerViewAdapter extends RecyclerView.Adapter<MarkerRecycl
     private static final String ICON_BASE_PATH = "acdb/img/map/";
 
     private static final Map<MapIconType, String> ICON_FILENAMES = new HashMap<MapIconType, String>() {{
-        put(MapIconType.UNKNOWN, "H_UX_Icon_Acdb_stacked_points.bmp");
-        put(MapIconType.ANCHORAGE, "H_UX_Icon_Acdb_anchorage.bmp");
-        put(MapIconType.ANCHORAGE_SPONSOR, "H_UX_Icon_Acdb_anchorage_sponsor.bmp");
-        put(MapIconType.BOAT_RAMP, "H_UX_Icon_Acdb_lk_boatramp.bmp");
-        put(MapIconType.BRIDGE, "H_UX_Icon_Acdb_lk_bridge.bmp");
-        put(MapIconType.BUSINESS, "H_UX_Icon_Acdb_lk_shop.bmp");
-        put(MapIconType.BUSINESS_SPONSOR, "H_UX_Icon_Acdb_lk_shop_sponsor.bmp");
-        put(MapIconType.DAM, "H_UX_Icon_Acdb_lk_dam.bmp");
-        put(MapIconType.FERRY, "H_UX_Icon_Acdb_lk_ferry.bmp");
-        put(MapIconType.HAZARD, "H_UX_Icon_Acdb_hazard.bmp");
-        put(MapIconType.INLET, "H_UX_Icon_Acdb_lk_inlet.bmp");
-        put(MapIconType.LOCK, "H_UX_Icon_Acdb_lk_lock.bmp");
-        put(MapIconType.MARINA, "H_UX_Icon_Acdb_marina.bmp");
-        put(MapIconType.MARINA_SPONSOR, "H_UX_Icon_Acdb_marina_sponsor.bmp");
+        put(MapIconType.UNKNOWN, "stacked_points_icon.png");
+        put(MapIconType.ANCHORAGE, "anchorage_icon.png");
+        put(MapIconType.ANCHORAGE_SPONSOR, "anchorage_sponsored_icon.png");
+        put(MapIconType.BOAT_RAMP, "boatramp_icon.png");
+        put(MapIconType.BRIDGE, "bridge_icon.png");
+        put(MapIconType.BUSINESS, "shop_icon.png");
+        put(MapIconType.BUSINESS_SPONSOR, "shop_sponsored_icon.png");
+        put(MapIconType.DAM, "dam_icon.png");
+        put(MapIconType.FERRY, "ferry_icon.png");
+        put(MapIconType.HAZARD, "hazard_icon.png");
+        put(MapIconType.INLET, "inlet_icon.png");
+        put(MapIconType.LOCK, "lock_icon.png");
+        put(MapIconType.MARINA, "marina_icon.png");
+        put(MapIconType.MARINA_SPONSOR, "marina_sponsored_icon.png");
     }};
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
