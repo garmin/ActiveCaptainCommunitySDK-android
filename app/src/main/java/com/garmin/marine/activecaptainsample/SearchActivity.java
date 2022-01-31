@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity implements ItemClickListen
             public boolean onQueryTextChange(String query) {
                 if (query.length() >= ActiveCaptainConfiguration.MARKER_MIN_SEARCH_LENGTH)
                 {
-                    SearchMarker[] searchMarkers = ActiveCaptainManager.getInstance().getDatabase().getSearchMarkers(query, -90, -180, 90, 180, ActiveCaptainConfiguration.MARKER_MAX_SEARCH_RESULTS);
+                    SearchMarker[] searchMarkers = ActiveCaptainManager.getInstance().getDatabase().getSearchMarkers(query, -90, -180, 90, 180, ActiveCaptainConfiguration.MARKER_MAX_SEARCH_RESULTS, false);
                     markerRecyclerViewAdapter.updateSearchMarkers(searchMarkers);
                 }
 

@@ -33,7 +33,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ActiveCaptainApiInterface {
-    @GET("api/v1/authentication/access-token")
+    @GET("api/v2/authentication/access-token")
     Call<String> getAccessToken(@Query("serviceUrl") String serviceUrl, @Query("serviceTicket") String serviceTicket);
 
     @POST("api/v2/authentication/refresh-token")

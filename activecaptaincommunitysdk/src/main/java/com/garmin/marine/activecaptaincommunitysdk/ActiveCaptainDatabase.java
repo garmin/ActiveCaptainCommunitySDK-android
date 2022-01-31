@@ -94,9 +94,10 @@ public class ActiveCaptainDatabase implements Closeable {
      * @param north longitude of northern edge of bounding box
      * @param east latitude of eastern edge of bounding box
      * @param maxResultCount maximum number of results to return
+     * @param escapeHtml HTML-escape the resulting POI names
      * @return Array of SearchMarkers in the given bounding box (matching name, if specified)
      */
-    public native SearchMarker[] getSearchMarkers(String name, double south, double west, double north, double east, int maxResultCount);
+    public native SearchMarker[] getSearchMarkers(String name, double south, double west, double north, double east, int maxResultCount, boolean escapeHtml);
 
     /**
      * Set content of HTML &lt;head&gt; tag to be used in rendered HTML.  If not called, default CSS will be used.

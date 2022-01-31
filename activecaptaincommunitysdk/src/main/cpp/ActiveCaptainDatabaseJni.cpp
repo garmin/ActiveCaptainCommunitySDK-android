@@ -21,6 +21,7 @@ limitations under the License.
 #include "Acdb/DataService.hpp"
 #include "Acdb/Repository.hpp"
 #include "Acdb/ISettingsManager.hpp"
+#include "Acdb/StringUtil.hpp"
 #include "Acdb/UpdateService.hpp"
 #include "Acdb/Version.hpp"
 #include "NavDateTimeExtensions.hpp"
@@ -267,7 +268,7 @@ jobject Java_com_garmin_marine_activecaptaincommunitysdk_ActiveCaptainDatabase_g
 
     // DataService functions
 
-    jobjectArray Java_com_garmin_marine_activecaptaincommunitysdk_ActiveCaptainDatabase_getSearchMarkers(JNIEnv* env, jobject obj, jstring nameJstr, jdouble south, jdouble west, jdouble north, jdouble east, jint maxResultCount) {
+    jobjectArray Java_com_garmin_marine_activecaptaincommunitysdk_ActiveCaptainDatabase_getSearchMarkers(JNIEnv* env, jobject obj, jstring nameJstr, jdouble south, jdouble west, jdouble north, jdouble east, jint maxResultCount, jboolean escapeHtml) {
         SmartPointerHolder* holder = (SmartPointerHolder*) env->GetLongField(obj, getPtrFieldId(env, obj));
 
         Acdb::SearchMarkerFilter filter;
@@ -346,6 +347,11 @@ jobject Java_com_garmin_marine_activecaptaincommunitysdk_ActiveCaptainDatabase_g
 
         for(std::size_t i = 0; i < searchMarkers.size(); i++)
         {
+            std::string markerName = searchMarkers[i]->GetName();
+            if (escapeHtml == true) {
+                Acdb::String::HtmlEscape(markerName);
+            }
+
             std::map<ACDB_type_type, jobject>::const_iterator markerIt = MARKER_TYPES.find(searchMarkers[i]->GetType());
             if (markerIt == MARKER_TYPES.end())
             {
@@ -358,7 +364,7 @@ jobject Java_com_garmin_marine_activecaptaincommunitysdk_ActiveCaptainDatabase_g
                 iconIt = MAP_ICON_TYPES.begin();
             }
 
-            jobject result = env->NewObject(clazz, initMethodId, searchMarkers[i]->GetId(), env->NewStringUTF(searchMarkers[i]->GetName().c_str()), markerIt->second, searchMarkers[i]->GetPosition().lat * UTL_SEMI_TO_DEG, searchMarkers[i]->GetPosition().lon * UTL_SEMI_TO_DEG, iconIt->second);
+            jobject result = env->NewObject(clazz, initMethodId, searchMarkers[i]->GetId(), env->NewStringUTF(markerName.c_str()), markerIt->second, searchMarkers[i]->GetPosition().lat * UTL_SEMI_TO_DEG, searchMarkers[i]->GetPosition().lon * UTL_SEMI_TO_DEG, iconIt->second);
             env->SetObjectArrayElement(results, i, result);
         }
 
