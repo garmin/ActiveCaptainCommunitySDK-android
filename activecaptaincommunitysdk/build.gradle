@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdk 34
+    namespace "com.garmin.marine.activecaptaincommunitysdk"
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdk 23
+        targetSdk 34
         versionCode 1
         versionName "2.0.3"
     }
@@ -20,6 +20,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+        singleVariant('debug') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
@@ -27,8 +39,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     libraryVariants.all { variant ->

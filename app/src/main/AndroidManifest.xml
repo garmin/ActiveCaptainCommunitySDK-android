@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ActiveCaptainSample"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:exported="false"/>
 
-        <activity android:name=".WebViewActivity" />
+        <activity android:name=".WebViewActivity" android:exported="false"/>
 
-        <activity android:name=".SearchActivity"/>
+        <activity android:name=".SearchActivity" android:exported="false"/>
 
     </application>
 
